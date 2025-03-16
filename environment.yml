@@ -1,0 +1,29 @@
+name: news_classification
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pytorch
+  - torchvision
+  - pytorch-cuda=12.1
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - ipykernel
+  - pip:
+    - transformers
+    - datasets
+    - evaluate
+    - tensorboard
+    - nltk
+    - tqdm
+    - wandb
+    - accelerate
+    - kaggle 
