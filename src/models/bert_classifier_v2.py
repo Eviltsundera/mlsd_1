@@ -67,7 +67,7 @@ def create_dataloaders(train_data, val_data, test_data, tokenizer):
     def tokenize_function(examples):
         """Токенизация текстов и конвертация меток."""
         # Получаем тексты и метки
-        texts = examples['text']
+        texts = [str(text) for text in examples['text']]  # Явное приведение к строке
         labels = examples['harmonized_label']
         
         # Токенизация
@@ -76,16 +76,17 @@ def create_dataloaders(train_data, val_data, test_data, tokenizer):
             padding='max_length',
             truncation=True,
             max_length=CONFIG['max_length'],
-            return_tensors='pt'
+            return_tensors=None  # Изменено с 'pt' на None
         )
         
         # Конвертация меток в числовой формат
         label_to_id = {label: idx for idx, label in enumerate(sorted(set(train_data['harmonized_label'])))}
         numeric_labels = [label_to_id[label] for label in labels]
         
+        # Преобразование в тензоры
         return {
-            'input_ids': encoded['input_ids'],
-            'attention_mask': encoded['attention_mask'],
+            'input_ids': torch.tensor(encoded['input_ids']),
+            'attention_mask': torch.tensor(encoded['attention_mask']),
             'labels': torch.tensor(numeric_labels)
         }
     
@@ -105,6 +106,11 @@ def create_dataloaders(train_data, val_data, test_data, tokenizer):
         batched=True,
         remove_columns=test_data.column_names
     )
+    
+    # Настройка формата данных для DataLoader
+    train_encoded.set_format(type='torch', columns=['input_ids', 'attention_mask', 'labels'])
+    val_encoded.set_format(type='torch', columns=['input_ids', 'attention_mask', 'labels'])
+    test_encoded.set_format(type='torch', columns=['input_ids', 'attention_mask', 'labels'])
     
     # Создание DataLoader'ов
     train_dataloader = DataLoader(
@@ -128,7 +134,7 @@ def train_epoch(model, train_dataloader, optimizer, scheduler, device):
     model.train()
     total_loss = 0
     
-    for batch in tqdm(train_dataloader, desc="Обучение"):
+    for batch_idx, batch in enumerate(tqdm(train_dataloader, desc="Обучение")):
         input_ids = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
         labels = batch['labels'].to(device)
@@ -148,6 +154,12 @@ def train_epoch(model, train_dataloader, optimizer, scheduler, device):
             optimizer.step()
             scheduler.step()
             optimizer.zero_grad()
+            
+            # Логирование в wandb
+            wandb.log({
+                'train_loss': loss.item(),
+                'learning_rate': scheduler.get_last_lr()[0]
+            })
     
     return total_loss / len(train_dataloader)
 
@@ -183,7 +195,7 @@ def main():
     wandb.init(
         project="news-classification",
         config=CONFIG,
-        name="bert_classifier"
+        name="bert_classifier_v2"
     )
     
     # Загрузка данных
