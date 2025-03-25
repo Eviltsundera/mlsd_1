@@ -14,11 +14,10 @@
 
 | Модель | Размер модели | Время обучения | Основная метрика | Оптимизация гиперпараметров |
 | --- | --- | --- | --- | --- |
-| TF-IDF + SVM | - | ~5 мин | 0.8863 | Нет |
-| DistilBERT | 66M | ~1 час/эпоха | 0.9156 | Да (batch_size=32, lr=2e-5, epochs=3) |
-| RoBERTa | 125M | ~2 часа/эпоха | 0.9201 | Да (batch_size=16, lr=2e-5, epochs=3) |
-| BERT | 110M | ~2 часа/эпоха | 0.9201 | Да (batch_size=16, lr=2e-5, epochs=3) |
-| DeBERTa-v3-small | 44M | ~1 час/эпоха | 0.9201 | Да (batch_size=16, lr=2e-5, epochs=1) |
+| TF-IDF + SVM | -| 0.8863 | Нет |
+| DistilBERT | 66M | 0.9282 | Да (batch_size=32, lr=2e-5, epochs=3) |
+| RoBERTa | 125M | 0.9327 | Да (batch_size=16, lr=2e-5, epochs=3) |
+| DeBERTa-v3-small | 44M | 0.9201 | Да (batch_size=16, lr=2e-5, epochs=1) |
 
 **Выбранная итоговая модель:** DeBERTa-v3-small
 
