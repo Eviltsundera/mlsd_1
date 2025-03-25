@@ -18,6 +18,7 @@
 | DistilBERT | 66M | 0.9282 | Да (batch_size=32, lr=2e-5, epochs=3) |
 | RoBERTa | 125M | 0.9327 | Да (batch_size=16, lr=2e-5, epochs=3) |
 | DeBERTa-v3-small | 44M | 0.9201 | Да (batch_size=16, lr=2e-5, epochs=1) |
+| ELECTRA-base | 44M | 0.9212 | Да (batch_size=16, lr=2e-5, epochs=1) |
 
 **Выбранная итоговая модель:** DeBERTa-v3-small
 

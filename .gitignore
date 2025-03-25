@@ -4,3 +4,4 @@ wandb
 models/bert/best_model/model.safetensors
 models/roberta/best_model/model.safetensors
 models/deberta/best_model/model.safetensors
+models/electra/best_model/model.safetensors
