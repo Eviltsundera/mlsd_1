@@ -1,3 +1,4 @@
 # Данные
 data
 wandb
+models/bert/best_model/model.safetensors
