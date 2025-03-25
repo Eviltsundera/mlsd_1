@@ -1,4 +1,5 @@
 # Классификация новостных статей по категориям
+https://wandb.ai/eviltsundera/news-classification/workspace?nw=nwusereviltsundera
 
 Проект по многоклассовой классификации новостных статей с использованием трансформеров.
 
