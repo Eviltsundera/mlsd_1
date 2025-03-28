@@ -34,6 +34,10 @@
 - **Validation:** 19,851 записей
 - **Test:** 2,200 записей
 
+**Ссылки на код:**
+- Загрузка данных: [`src/dataset/download_datasets.py`](../src/dataset/download_datasets.py)
+- Анализ данных: [`src/dataset/analyze_datasets.py`](../src/dataset/analyze_datasets.py)
+
 ---
 
 ### **2. Метрики и разбиение данных**
@@ -45,6 +49,9 @@
 - Confusion Matrix
 
 **Способ разбиения:** Стратифицированное (по классам и источникам)
+
+**Ссылки на код:**
+- Разбиение данных: [`src/dataset/merge_datasets.py:217-259`](../src/dataset/merge_datasets.py) (метод `create_validation_split`)
 
 ---
 
@@ -88,6 +95,11 @@
 - Проверено отсутствие утечек из источников
 - Сохранена информация об источниках для анализа
 
+**Ссылки на код:**
+- Очистка данных: [`src/dataset/clean_datasets.py`](../src/dataset/clean_datasets.py)
+- Гармонизация меток: [`src/dataset/merge_datasets.py:99-130`](../src/dataset/merge_datasets.py) (методы `get_harmonized_labels` и `process_split`)
+- Объединение датасетов: [`src/dataset/merge_datasets.py:165-188`](../src/dataset/merge_datasets.py) (метод `merge_datasets`)
+
 ---
 
 ### **4. Бейзлайн**
@@ -110,6 +122,8 @@
 - Classification Report
 - Важность признаков
 
+![TF-IDF + Logistic Regression Baseline Results](../results/TF-IDF+LogisticRegression_baseline.png)
+
 **Результаты сохранены в:**
 - models/baseline/baseline_results.json
 - models/baseline/confusion_matrix.png
@@ -124,6 +138,9 @@
   - Увеличение размера обучающей выборки
   - Использование более сложных моделей (BERT)
   - Дополнительная предобработка текста
+
+**Ссылки на код:**
+- Реализация бейзлайна: [`src/models/baseline.py`](../src/models/baseline.py)
 
 ---
 
@@ -156,7 +173,15 @@
 
 Модель показала отличные результаты на валидационной выборке, достигнув accuracy 92.82% и F1-score 92.73%. На тестовой выборке результаты немного ниже (88.63%), что может указывать на небольшой переобучении. Тем не менее, результаты значительно превосходят базовую модель TF-IDF + Logistic Regression.
 
+![DistilBERT Terminal Output](../results/distilbert_baseline_terminal.png)
+
+![DistilBERT Wandb Monitoring](../results/distilbert_baseline_wandb.png)
+
 #### Результаты сохранены в:
 - `models/bert/best_model/` - лучшая модель
 - `models/bert/bert_results.json` - метрики и отчет о классификации
 - `wandb/` - логи и метрики обучения
+
+**Ссылки на код:**
+- Классификатор BERT: [`src/models/bert_classifier.py`](../src/models/bert_classifier.py)
+- Пайплайн данных: [`src/dataset/run_data_pipeline.py`](../src/dataset/run_data_pipeline.py)
